@@ -1,0 +1,13 @@
+# Render Blueprint: free web service built from the root Dockerfile (HTTPS is automatic).
+services:
+  - type: web
+    name: documind-ai
+    runtime: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    healthCheckPath: /api/health
+    envVars:
+      - key: LLM_PROVIDER
+        value: extractive
+      - key: DEMO_MODE
+        value: "true"

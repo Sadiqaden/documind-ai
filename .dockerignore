@@ -1,0 +1,15 @@
+# Never send secrets or local state into the build
+.env
+**/.env
+.git
+**/node_modules
+**/.venv
+**/data
+**/dist
+**/__pycache__
+**/.pytest_cache
+**/.ruff_cache
+**/.mypy_cache
+**/*.tsbuildinfo
+.claude
+.DS_Store
