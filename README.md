@@ -145,7 +145,7 @@ Interactive docs are at `http://localhost:8000/docs`.
 ## Testing
 
 ```bash
-cd backend && .venv/bin/pytest            # 65 tests
+cd backend && .venv/bin/pytest            # 70 tests
 cd backend && .venv/bin/ruff check app tests && .venv/bin/mypy app
 cd frontend && npm test                   # 16 tests (Vitest + Testing Library)
 cd frontend && npm run lint && npm run typecheck && npm run build
@@ -211,6 +211,30 @@ In demo mode:
 
 To demo your own documents, put PDFs in `backend/demo_docs/` and edit `DEMO_QUESTIONS` in
 `backend/app/services/demo.py` to match them.
+
+## Deployment: single container (Render and similar hosts)
+
+The root [Dockerfile](Dockerfile) builds the frontend and backend into **one** image. FastAPI serves
+the website as well as the API, which suits hosts that run one container per service. The image
+defaults to the public-demo setup (`DEMO_MODE=true`, `LLM_PROVIDER=extractive`) and listens on
+`$PORT`.
+
+**Render (free plan, HTTPS included):**
+1. Push this repository to GitHub.
+2. In Render, choose **New → Blueprint**, select the repository, and apply. [render.yaml](render.yaml)
+   creates a free Docker web service with a health check on `/api/health`.
+3. Your site is served at `https://<service-name>.onrender.com`.
+
+Free Render services sleep when idle, so the first visit after a quiet period can take up to about
+a minute. The disk is temporary, which is fine in demo mode: the sample documents are re-indexed on
+every start.
+
+To test the image locally:
+
+```bash
+docker build -t documind .
+docker run -p 8000:8000 documind     # http://localhost:8000
+```
 
 ## Deployment (Docker Compose)
 
