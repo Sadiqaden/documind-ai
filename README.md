@@ -3,6 +3,12 @@
 An AI document research assistant. Upload PDFs, ask questions, and get answers grounded in your
 documents, with clickable citations that go to the exact document and page.
 
+**Live demo: [documind-ai-kijj.onrender.com](https://documind-ai-kijj.onrender.com)**
+
+The demo runs in free retrieval-only mode with two sample documents. Questions return the most
+relevant passages with page citations; uploads are turned off. It's hosted on Render's free plan,
+so the first visit after a quiet period can take up to a minute while the server wakes up.
+
 - **Quick answer mode**: one retrieval pass, then one Claude call that must cite its sources.
 - **Research agent mode**: Claude uses explicit, bounded tools (`list_documents`,
   `search_documents`, `read_document`) to search and summarize across documents.
